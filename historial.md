@@ -81,9 +81,20 @@
 - **M31 "Inglés B1→C1: el plan del developer para la fluidez"** (principal, libre): plan 3×30 (input técnico sin subtítulos, output forzado con IA por voz/tandem/narrar código, sistema de errores `mistakes.md`), vocabulario técnico como activo C1 oculto, 20 frases-patrón de trabajo (stand-up/PR/review), conectores que marcan C1, y la ruta al mercado en USD (proposals Upwork, discovery calls, negociación sin pedir perdón por cobrar). Meta medible: llamada de 15 min fluida en 60 días.
 - Capacitación final: **32 módulos** (22 principales libres + 10 convergentes tras el examen de **22 preguntas, aprobación ≥19**).
 
+## Fase 10 · v1.1 · Examen final en cajón + desbloqueo al 100%
+
+- Petición: compactar el examen final para que no quede esparcido al inicio; debía quedar dentro de un cajón y desbloquearse al 100% de progreso.
+- **`index.html` — examen como cajón colapsable:** pasó de estar siempre expandido a un panel cerrado por defecto, con flecha `▸/▾` y estado persistido en `estado.examenAbierto` (localStorage).
+- **Bloqueo al 100% de la ruta principal:** el examen se desbloquea al completar los **22 módulos principales** (los 10 convergentes dependen del examen, así que exigir los 32 sería circular). El badge muestra `🔒 X/22 principales` y, al abrir el cajón bloqueado, cuántos faltan.
+- **Mecánica conservada:** aprobar el examen (≥19/22) sigue siendo la llave de los 10 módulos convergentes.
+- **Barra de progreso en dos fases:** antes de aprobar mide la ruta principal (`% de la ruta principal · X/22`); después de aprobar mide el curso completo (`X/32 · todo desbloqueado`).
+- **Mensajes actualizados:** avisos de módulo convergente bloqueado y de módulo completado ahora explican el flujo principal → examen → convergentes.
+- **Fix de CSS:** se eliminó un `@media (prefers-reduced-motion)` duplicado que dejaba el CSS del examen y del panel de competencia anidado dentro de la media query.
+- Commits: `38dfd3c` **"v 1.1"** en `main` y `dev`, subido a `origin`.
+
 ## Estado actual (resumen ejecutivo)
 
-- `capacitacion.html`: 27 módulos, examen final, dock de música, panel de competencia — se abre local, todo funciona.
+- `index.html`: 32 módulos (22 principales + 10 convergentes), examen final en cajón bloqueado al 100% de la ruta principal, dock de música y panel de competencia — se abre local, todo funciona.
 - `landing/index.html`: lista para publicar (pendiente número WhatsApp real, dominio, Netlify).
 - `INSTRUCCIONES.md`: actualizado a modelo abierto + examen.
 - Diseños canvas quedan en `C:/Users/carli/design/capacitacion-neon/` (referencia, no uso activo).
@@ -91,7 +102,7 @@
 ## Pendientes explícitos del usuario
 
 - ( ) Comprar dominio `popayanese.shop` (verificado disponible; confirmar renovación antes de pagar)
-- ( ) Crear el examen y aprobarlo para desbloquear convergentes
+- ( ) Completar los 22 módulos principales y aprobar el examen final (≥19/22) para desbloquear los 10 convergentes
 - ( ) Publicar landing en Netlify y customizar WhatsApp numero real
 - ( ) Primer trabajo gratis a conocidos (paso 4.1 INSTRUCCIONES)
 - ( ) Ranking en vivo: decidir si se monta el backend propio (vida en el módulo 10)
