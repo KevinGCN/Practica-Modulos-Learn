@@ -253,7 +253,6 @@
   .dock-musica.mini .mu-ctl, .dock-musica.mini .mu-num { display:none; }
 
   @media (prefers-reduced-motion: reduce) {
-  @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation:none !important; transition:none !important; }
   }
 
@@ -269,11 +268,17 @@
   .examen.aprobado { border-color:rgba(41,217,138,.6); box-shadow:0 0 30px rgba(41,217,138,.18), 0 16px 40px rgba(0,0,0,.55); }
   .examen .caja-cab {
     display:flex; justify-content:space-between; align-items:center; gap:12px;
-    padding:14px 20px; background:linear-gradient(90deg, rgba(255,45,64,.14), transparent 55%);
+    padding:14px 20px; cursor:pointer;
+    background:linear-gradient(90deg, rgba(255,45,64,.14), transparent 55%);
     border-bottom:1px solid var(--linea);
+    transition:background .2s;
   }
+  .examen .caja-cab:hover { background:linear-gradient(90deg, rgba(255,45,64,.24), transparent 60%); }
   .examen.aprobado .caja-cab { background:linear-gradient(90deg, rgba(41,217,138,.12), transparent 55%); }
   .examen .caja-cab strong { letter-spacing:.5px; font-size:.95rem; }
+  .examen .ex-flecha { color:var(--neon-soft); margin-left:6px; }
+  .examen .ex-cuerpo { display:none; }
+  .examen.abierto .ex-cuerpo { display:block; animation:abrir .28s ease both; }
   .ex-intro { padding:12px 20px; color:var(--texto); font-size:.9rem; }
   .ex-intro b { color:var(--blanco); }
   .ex-preguntas { padding:0 20px 20px; }
@@ -2351,36 +2356,52 @@ function render(){
   cont.innerHTML = '';
   let completados = 0;
 
-  /* --- panel de examen --- */
+  const principales = MODULOS.filter(m => !esConvergente(m));
+  const completadosPrincipales = principales.filter(m => estado['completo_' + m.id]).length;
+  const examenDesbloqueado = estado.examenAprobado || completadosPrincipales >= principales.length;
+  const examenAbierto = !!estado['examenAbierto'];
+
+  /* --- panel de examen (cajón compacto) --- */
   const examen = document.createElement('section');
-  examen.className = 'examen' + (estado.examenAprobado ? ' aprobado' : '');
+  examen.className = 'examen' + (estado.examenAprobado ? ' aprobado' : '') + (examenAbierto ? ' abierto' : '');
   const respuestas = EXAM.map((q, j) => (typeof estado['ex_' + j] === 'number' ? estado['ex_' + j] : -1));
   const correctas = EXAM.reduce((n, q, j) => n + (respuestas[j] === q.r ? 1 : 0), 0);
   const respondidas = respuestas.filter(x => x >= 0).length;
+  const etiquetaExamen = estado.examenAprobado
+    ? '✓ aprobado'
+    : examenDesbloqueado
+      ? correctas + '/' + EXAM.length + ' · necesitas ' + APROBACION
+      : '🔒 ' + completadosPrincipales + '/' + principales.length + ' principales';
 
   examen.innerHTML = `
-    <div class="caja-cab">
-      <strong>🎓 EXAMEN FINAL — la llave de los módulos convergentes</strong>
-      <span class="estado ${estado.examenAprobado ? 'completado' : 'pendiente'}">
-        ${estado.examenAprobado ? '✓ aprobado' : correctas + '/' + EXAM.length + ' · necesitas ' + APROBACION}
-      </span>
+    <div class="caja-cab" id="ex-cab">
+      <strong>🎓 EXAMEN FINAL — la llave de los módulos convergentes <span class="ex-flecha">${examenAbierto ? '▾' : '▸'}</span></strong>
+      <span class="estado ${estado.examenAprobado ? 'completado' : examenDesbloqueado ? 'en-curso' : 'bloqueado'}">${etiquetaExamen}</span>
     </div>
-    <div class="ex-intro">
-      ${estado.examenAprobado
-        ? '<b>Examen aprobado.</b> Todos los módulos convergentes quedaron desbloqueados para siempre (con este navegador). Seguí en orden recomendado o a gusto.'
-        : 'Las 10 rutas que <strong>convergen</strong> (Nginx, Cloudflare, operación, Express, React, Native, full-stack, testing, seguridad, backend) están bloqueadas hasta que apruebes este examen: una pregunta por cada módulo principal (22), mínimo ' + APROBACION + ' correctas. Podés corregir y reintentar sin límite — el examen aprende tus resbalones con vos.'}
+    <div class="ex-cuerpo">
+      ${!examenDesbloqueado ? `
+      <div class="ex-intro">
+        <b>🔒 Examen bloqueado.</b> Se desbloquea al completar el <strong>100% de la ruta principal</strong>:
+        ${completadosPrincipales}/${principales.length} módulos completados, te faltan ${principales.length - completadosPrincipales}.
+        Los 10 módulos convergentes siguen esperando que apruebes el examen.
+      </div>` : estado.examenAprobado ? `
+      <div class="ex-intro">
+        <b>Examen aprobado.</b> Todos los módulos convergentes quedaron desbloqueados para siempre (con este navegador). Seguí en orden recomendado o a gusto.
+      </div>` : `
+      <div class="ex-intro">
+        Completaste la ruta principal (${principales.length}/${principales.length}). Las 10 rutas que <strong>convergen</strong> (Nginx, Cloudflare, operación, Express, React, Native, full-stack, testing, seguridad, backend) se abren al aprobar: una pregunta por cada módulo principal, mínimo ${APROBACION} correctas. Podés corregir y reintentar sin límite.
+      </div>
+      <div class="ex-preguntas">
+        ${EXAM.map((q, j) => `
+          <div class="pregunta"><span class="ex-de">[${q.de}]</span> ${q.p}
+            ${q.ops.map((op, k) => `
+              <label><input type="radio" name="ex_${j}" data-ex="${j}_${k}" ${respuestas[j] === k ? 'checked' : ''}> ${op}</label>
+            `).join('')}
+          </div>`).join('')}
+        <div class="resultado-quiz" id="res_examen">respondidas: ${respondidas} · correctas: ${correctas} · mínimo ${APROBACION}</div>
+        <button class="btn-completar ex-btn" id="btn-examen" ${respondidas < EXAM.length ? 'disabled' : ''}>✓ Corregir examen</button>
+      </div>`}
     </div>
-    ${!estado.examenAprobado ? `
-    <div class="ex-preguntas">
-      ${EXAM.map((q, j) => `
-        <div class="pregunta"><span class="ex-de">[${q.de}]</span> ${q.p}
-          ${q.ops.map((op, k) => `
-            <label><input type="radio" name="ex_${j}" data-ex="${j}_${k}" ${respuestas[j] === k ? 'checked' : ''}> ${op}</label>
-          `).join('')}
-        </div>`).join('')}
-      <div class="resultado-quiz" id="res_examen">respondidas: ${respondidas} · correctas: ${correctas} · mínimo ${APROBACION}</div>
-      <button class="btn-completar ex-btn" id="btn-examen" ${respondidas < EXAM.length ? 'disabled' : ''}>✓ Corregir examen</button>
-    </div>` : ''}
   `;
   cont.appendChild(examen);
 
@@ -2435,21 +2456,29 @@ function render(){
     cont.appendChild(div);
   });
 
-  const pct = Math.round(100 * completados / MODULOS.length);
+  const pct = estado.examenAprobado
+    ? Math.round(100 * completados / MODULOS.length)
+    : Math.round(100 * completadosPrincipales / principales.length);
   document.getElementById('barra').style.width = pct + '%';
-  document.getElementById('progreso-texto').textContent =
-    pct + '% completado · ' + completados + '/' + MODULOS.length + ' módulos' +
-    (estado.examenAprobado ? ' · 🔓 todo desbloqueado' : ' · ' + MODULOS.filter(esConvergente).length + ' convergentes esperan el examen');
+  document.getElementById('progreso-texto').textContent = estado.examenAprobado
+    ? pct + '% completado · ' + completados + '/' + MODULOS.length + ' módulos · 🔓 todo desbloqueado'
+    : pct + '% de la ruta principal · ' + completadosPrincipales + '/' + principales.length + ' módulos · ' +
+      (examenDesbloqueado ? '🎓 examen final desbloqueado' : 'examen final al 100%');
 
   renderCompetir();
 
 /* --- listeners --- */
+  const cabEx = document.getElementById('ex-cab');
+  if (cabEx) cabEx.addEventListener('click', () => {
+    estado['examenAbierto'] = !examenAbierto;
+    guardar(); render();
+  });
   cont.querySelectorAll('.nivel-cab').forEach(cab => {
     cab.addEventListener('click', () => {
       const i = +cab.dataset.mod;
       const m = MODULOS[i];
       if (!desbloqueado(m)) {
-        alert('🔒 Este módulo CONVERGE en los previos (sintetiza varios). Aprueba el examen final de arriba y queda desbloqueado, junto con todos los convergentes.');
+        alert('🔒 Este módulo CONVERGE en los previos (sintetiza varios). Primero completá el 100% de la ruta principal y aprobá el examen final (cajón 🎓 al inicio); después queda desbloqueado junto con todos los convergentes.');
         return;
       }
       estado['abierto_' + m.id] = !estado['abierto_' + m.id];
@@ -2480,8 +2509,9 @@ function render(){
       const i = +btn.dataset.completar;
       estado['completo_' + MODULOS[i].id] = true;
       guardar(); render();
-      const quedan = 'Fin de la pista' ;
-      alert('🎉 Módulo completado. Tu examen ya te abrió todo el camino: apto para seguir en el orden que prefieras.');
+      alert(estado.examenAprobado
+        ? '🎉 Módulo completado. Los convergentes ya están abiertos: seguí por el orden que prefieras.'
+        : '🎉 Módulo completado. Completá el 100% de la ruta principal para desbloquear el examen final.');
     });
   });
 
