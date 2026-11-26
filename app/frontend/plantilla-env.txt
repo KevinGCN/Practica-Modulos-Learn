@@ -1,0 +1,3 @@
+# plantilla-env-frontend.txt
+# Copiá a app/frontend/.env cuando despliegues (para dev NO hace falta: usa el proxy de vite)
+VITE_API_URL=https://api.popayanese.shop

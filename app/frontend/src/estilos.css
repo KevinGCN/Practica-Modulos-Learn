@@ -1,0 +1,89 @@
+/* Piel de la app: misma paleta neón que tu capacitación (coherencia de marca) */
+:root {
+  --neon: #ff2d40; --neon-glow: rgba(255, 45, 64, .45);
+  --negro: #0a0a0c; --panel: #141418; --panel2: #1c1c22; --linea: #2a2a31;
+  --blanco: #f4f4f6; --texto: #c9c9d1; --gris: #9a9aa3;
+  --verde: #29d98a; --amarillo: #ffb636;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--negro); color: var(--blanco); line-height: 1.6; }
+input, select, textarea, button { font: inherit; }
+button { cursor: pointer; }
+a { color: var(--neon); }
+
+/* ---- auth ---- */
+.auth-caja {
+  max-width: 360px; margin: 12vh auto; padding: 28px;
+  background: var(--panel); border: 1px solid var(--linea);
+  border-top: 2px solid var(--neon); border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.5);
+}
+.auth-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+.auth-tabs button {
+  flex: 1; background: transparent; border: 1px solid var(--linea);
+  color: var(--gris); padding: 9px; border-radius: 8px; transition: all .2s;
+}
+.auth-tabs button.activo { border-color: var(--neon); color: var(--neon); font-weight: 700; }
+.auth-caja label { display: block; margin: 14px 0 5px; font-size: .85rem; color: var(--gris); }
+.auth-caja input {
+  width: 100%; padding: 10px 12px; border-radius: 8px;
+  background: var(--panel2); border: 1px solid var(--linea); color: var(--blanco);
+}
+.auth-caja input:focus { outline: 2px solid var(--neon); outline-offset: 1px; }
+.auth-error { margin-top: 12px; color: var(--neon); font-size: .85rem; }
+.auth-enviar {
+  margin-top: 18px; width: 100%; padding: 12px;
+  background: var(--neon); border: none; border-radius: 8px;
+  color: #fff; font-weight: 700; transition: box-shadow .2s, transform .2s;
+}
+.auth-enviar:hover { box-shadow: 0 0 18px var(--neon-glow); transform: translateY(-1px); }
+.auth-enviar:disabled { opacity: .5; cursor: wait; transform: none; box-shadow: none; }
+
+/* ---- home ---- */
+.home header {
+  display: flex; align-items: center; gap: 16px; padding: 14px 24px;
+  background: var(--panel); border-bottom: 1px solid var(--linea); position: sticky; top: 0;
+}
+.home .logo { font-weight: 800; }
+.home .logo b { color: var(--neon); }
+.home .quien { margin-left: auto; color: var(--gris); font-size: .88rem; }
+.home main { max-width: 640px; margin: 8vh auto; padding: 0 20px; }
+.home h1 { margin-bottom: 12px; }
+.admin-link { font-weight: 700; text-underline-offset: 3px; }
+.home header button {
+  background: transparent; border: 1px solid var(--linea); color: var(--gris);
+  padding: 6px 14px; border-radius: 8px; transition: all .2s;
+}
+.home header button:hover { border-color: var(--neon); color: var(--neon); }
+
+/* ---- panel admin ---- */
+.panel-admin { max-width: 960px; margin: 0 auto; padding: 32px 20px; }
+.panel-admin header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+.panel-admin header h1 { font-size: 1.3rem; }
+.panel-admin header button {
+  background: transparent; border: 1px solid var(--linea); color: var(--gris);
+  padding: 7px 14px; border-radius: 8px;
+}
+.panel-admin table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.panel-admin th, .panel-admin td { border: 1px solid var(--linea); padding: 9px 12px; text-align: left; color: var(--texto); }
+.panel-admin th { background: var(--panel2); color: var(--gris); text-transform: uppercase; font-size: .72rem; letter-spacing: 1px; }
+.panel-admin .rol { font-weight: 700; }
+.panel-admin .rol.admin { color: var(--amarillo); }
+.panel-admin .rol.user { color: var(--gris); }
+.panel-admin .acciones { display: flex; gap: 6px; flex-wrap: wrap; }
+.panel-admin .acciones button {
+  background: transparent; border: 1px solid var(--linea); color: var(--blanco);
+  padding: 5px 12px; border-radius: 6px; font-size: .82rem;
+}
+.panel-admin .acciones button:hover:not(:disabled) { border-color: var(--neon); }
+.panel-admin .acciones button:disabled { opacity: .35; cursor: not-allowed; }
+.panel-admin .acciones button.peligro { color: var(--neon); border-color: rgba(255,45,64,.4); }
+.panel-admin .acciones button.peligro:hover:not(:disabled) { background: rgba(255,45,64,.12); }
+.panel-admin input {
+  padding: 6px 10px; border-radius: 6px; width: 140px;
+  background: var(--panel2); border: 1px solid var(--linea); color: var(--blanco);
+}
+.panel-admin select {
+  padding: 6px 10px; border-radius: 6px;
+  background: var(--panel2); border: 1px solid var(--linea); color: var(--blanco);
+}

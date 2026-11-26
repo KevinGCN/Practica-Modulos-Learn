@@ -1,0 +1,8 @@
+# plantilla-env-backend.txt
+# Copiá este contenido a  app/backend/.env  (el agente no puede escribir .env por
+# política de seguridad: crealo vos en tu editor con estos valores y editálos).
+
+JWT_SECRET=cambia-por-una-frase-larga-aleatoria-de-40-caracteres-o-mas
+ADMIN_PASSWORD=TuContraseñaInicial2024
+PORT=3000
+ORIGEN_FRONT=http://localhost:5173

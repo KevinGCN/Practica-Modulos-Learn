@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popayanese — Páginas web para negocios de Popayán</title>
+  <meta name="description" content="Diseño y publico páginas web, menús QR y catálogos digitales para negocios de Popayán. Entrega en días, precio justo, sin letra chica.">
+  <style>
+    :root {
+      --rojo: #c0392b;
+      --crema: #fdf6ec;
+      --tinta: #2c2c2c;
+      --gris: #6b6560;
+      --blanco: #ffffff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--tinta); background: var(--crema); line-height: 1.6; }
+    .contenedor { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+    /* ---- barra superior ---- */
+    header { background: var(--blanco); box-shadow: 0 1px 4px rgba(0,0,0,.08); position: sticky; top: 0; z-index: 10; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; max-width: 1000px; margin: 0 auto; }
+    .logo { font-weight: 800; font-size: 1.2rem; color: var(--rojo); }
+    .logo span { color: var(--tinta); font-weight: 400; }
+    nav a { color: var(--tinta); text-decoration: none; margin-left: 18px; font-size: .95rem; }
+    nav a.boton { background: var(--rojo); color: #fff; padding: 8px 16px; border-radius: 6px; }
+
+    /* ---- héroe ---- */
+    .heroe { padding: 70px 20px 60px; text-align: center; }
+    .heroe h1 { font-size: 2.2rem; max-width: 700px; margin: 0 auto 16px; }
+    .heroe h1 em { color: var(--rojo); font-style: normal; }
+    .heroe p { max-width: 560px; margin: 0 auto 28px; color: var(--gris); font-size: 1.05rem; }
+    .cta { display: inline-block; background: var(--rojo); color: #fff; padding: 14px 30px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.05rem; }
+    .cta:hover { filter: brightness(1.1); }
+
+    /* ---- secciones ---- */
+    section { padding: 55px 20px; }
+    h2 { text-align: center; font-size: 1.7rem; margin-bottom: 8px; }
+    .subtitulo { text-align: center; color: var(--gris); margin-bottom: 38px; }
+    .tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .tarjeta { background: var(--blanco); border-radius: 10px; padding: 26px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .tarjeta h3 { margin-bottom: 10px; color: var(--rojo); font-size: 1.1rem; }
+    .tarjeta p { color: var(--gris); font-size: .95rem; }
+
+    .pasos { max-width: 640px; margin: 0 auto; counter-reset: paso; }
+    .paso { display: flex; gap: 16px; margin-bottom: 22px; align-items: flex-start; }
+    .paso::before { counter-increment: paso; content: counter(paso); background: var(--rojo); color: #fff; min-width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+    .contacto { background: var(--tinta); color: #fff; text-align: center; }
+    .contacto h2 { color: #fff; }
+    .contacto p { color: #cfcac4; max-width: 480px; margin: 0 auto 26px; }
+    .contacto .cta { font-size: 1.1rem; }
+
+    footer { text-align: center; padding: 24px; color: var(--gris); font-size: .85rem; }
+
+    /* ---- responsivo ---- */
+    @media (max-width: 640px) {
+      .heroe h1 { font-size: 1.7rem; }
+      nav a:not(.boton) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="logo">Popayán<span>ese</span></div>
+      <div>
+        <a href="#servicios">Servicios</a>
+        <a href="#proceso">Cómo trabajo</a>
+        <a href="#contacto" class="boton">Escríbeme</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="heroe">
+    <h1>Tu negocio merece que te encuentren en <em>Google</em>, no solo en la esquina</h1>
+    <p>Diseño páginas web, menús digitales con código QR y catálogos en línea para negocios de Popayán. Entrega rápida, precio de origen y todo en español claro.</p>
+    <a href="#contacto" class="cta">Pídeme tu página</a>
+  </div>
+
+  <section id="servicios">
+    <h2>Qué puedo construir para tu negocio</h2>
+    <p class="subtitulo">Cada cosa existe para que tu cliente encuentre, entienda y compre más fácil.</p>
+    <div class="tarjetas">
+      <div class="tarjeta">
+        <h3>Página web del negocio</h3>
+        <p>Una página con tu historia, tus productos y cómo llegar. Aparece en Google cuando alguien busca lo que vendes.</p>
+      </div>
+      <div class="tarjeta">
+        <h3>Menú QR para restaurante</h3>
+        <p>Tu menú en un código QR que se pega en las mesas. Lo actualizas sin reimprimir nada.</p>
+      </div>
+      <div class="tarjeta">
+        <h3>Catálogo digital</h3>
+        <p>Tus productos con foto y precio, como un catálogo de puertas. Ideal para enviar por WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="proceso" style="background: var(--blanco);">
+    <h2>Cómo trabajamos</h2>
+    <p class="subtitulo">Simple y sin tanto enredo técnico.</p>
+    <div class="pasos">
+      <div class="paso"><div><strong>Nos hablamos 20 minutos.</strong> Me cuentas qué vendes y qué quieres que la página logre.</div></div>
+      <div class="paso"><div><strong>Te envío un demo en 48 horas.</strong> Ves algo real en pantalla, no promesas.</div></div>
+      <div class="paso"><div><strong>Ajustamos juntos.</strong> Cambias lo que quieras: colores, textos, fotos.</div></div>
+      <div class="paso"><div><strong>Se publica y te capacito.</strong> Te dejo todo listo y 30 min de clase para que sepas usarla.</div></div>
+    </div>
+  </section>
+
+  <section class="contacto" id="contacto">
+    <h2>Empieza hoy, no mañana</h2>
+    <p>Escríbeme por WhatsApp, te contesto el mismo día. La primera conversación es gratis y sin compromiso.</p>
+    <!-- Reemplaza el numero por el tuyo: formato internacional sin "+" ni espacios -->
+    <a class="cta" href="https://wa.me/57XXXXXXXXXX?text=Hola%20Popayanese,%20quiero%20una%20p%C3%A1gina%20web%20para%20mi%20negocio">Hablar por WhatsApp</a>
+  </section>
+
+  <footer>
+    Popayanese · Hecho en Popayán, Cauca · popayanese.shop
+  </footer>
+
+</body>
+</html>
