@@ -1,0 +1,231 @@
+/* ============ Capacitación Popayanese · estilos base v6.2 ============ */
+:root {
+  --neon:#ff2d40; --neon-soft:#ff5a5f; --neon-glow:rgba(255,45,64,.5);
+  --negro:#0a0a0c; --panel:#101014; --panel2:#16161b; --linea:#26262d;
+  --blanco:#f4f4f6; --texto:#c9c9d1; --gris:#9a9aa3;
+  --verde:#29d98a; --amarillo:#ffb636; --bloq:#71717a;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:Consolas, 'Cascadia Mono', ui-monospace, 'Segoe UI', monospace;
+  background:
+    radial-gradient(1000px 550px at 85% -5%, rgba(255,45,64,.14), transparent 55%),
+    radial-gradient(800px 500px at 0% 105%, rgba(255,45,64,.08), transparent 60%),
+    var(--negro);
+  color:var(--blanco); line-height:1.68; min-height:100vh;
+}
+::selection { background:var(--neon); color:#fff; }
+::-webkit-scrollbar { width:10px; } ::-webkit-scrollbar-track { background:#0d0d10; }
+::-webkit-scrollbar-thumb { background:#2c2c34; border-radius:6px; }
+::-webkit-scrollbar-thumb:hover { background:var(--neon); }
+button:focus-visible, a:focus-visible, [tabindex]:focus-visible,
+input:focus-visible { outline:2px solid var(--neon); outline-offset:2px; }
+
+a { color:var(--neon-soft); text-decoration:none; }
+a:hover { text-decoration:underline; text-underline-offset:3px; }
+
+/* ============ Navbar ============ */
+.nav {
+  position:sticky; top:0; z-index:50;
+  background:linear-gradient(180deg, rgba(10,10,12,.97), rgba(10,10,12,.92));
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--linea);
+  padding:12px 20px;
+  box-shadow:0 6px 30px rgba(0,0,0,.5);
+}
+.nav::after {
+  content:''; display:block; height:2px; margin-top:10px;
+  background:linear-gradient(90deg, transparent, var(--neon), transparent);
+  background-size:45% 100%; background-repeat:no-repeat;
+  animation:recorre 5s linear infinite;
+}
+@keyframes recorre { 0% { background-position:-80% 0; } 100% { background-position:260% 0; } }
+.nav-inner {
+  max-width:920px; margin:0 auto;
+  display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;
+}
+.nav-brand { font-weight:700; letter-spacing:.4px; color:var(--blanco); display:flex; align-items:center; gap:10px; }
+.nav-brand::before { content:'●'; color:var(--neon); text-shadow:0 0 14px var(--neon-glow); }
+.nav-brand:hover { text-decoration:none; }
+.nav-links { display:flex; gap:6px; flex-wrap:wrap; }
+.nav-links a {
+  color:var(--gris); font-size:.8rem; letter-spacing:1px; text-transform:uppercase;
+  padding:5px 12px; border:1px solid transparent; border-radius:6px;
+}
+.nav-links a:hover { color:var(--blanco); text-decoration:none; background:rgba(255,45,64,.08); }
+.nav-links a.activo { color:var(--neon); border-color:rgba(255,45,64,.4); background:rgba(255,45,64,.06); }
+/* progreso global en la navbar */
+.nav-progreso { display:flex; align-items:center; gap:10px; min-width:180px; }
+.nav-progreso .barra { flex:1; height:8px; background:#17171c; border:1px solid var(--linea); overflow:hidden; border-radius:2px; }
+.nav-progreso .barra > div {
+  height:100%; width:0%;
+  background:repeating-linear-gradient(90deg, var(--neon) 0 12px, #8f1420 12px 18px);
+  box-shadow:0 0 12px var(--neon-glow);
+  transition:width .5s cubic-bezier(.22,1,.36,1);
+  animation:rayas 3s linear infinite;
+}
+@keyframes rayas { to { background-position:30px 0; } }
+.nav-progreso span { font-size:.68rem; color:var(--gris); letter-spacing:1.5px; text-transform:uppercase; white-space:nowrap; }
+@media (max-width:640px) { .nav-progreso { display:none; } }
+
+/* ============ Layout común ============ */
+.wrap { max-width:920px; margin:0 auto; padding:20px; }
+h1.pagina { font-size:1.35rem; margin:26px 0 6px; letter-spacing:.3px; }
+p.intro { color:var(--gris); font-size:.9rem; margin-bottom:18px; }
+h2.seccion {
+  color:var(--neon-soft); margin:22px 0 10px;
+  text-transform:uppercase; font-size:.78rem; letter-spacing:1.2px;
+  border-left:3px solid var(--neon); padding-left:10px;
+}
+
+/* ============ Tarjetas de módulos (catálogo e inicio) ============ */
+.grid-modulos { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:14px; margin:14px 0; }
+.tarjeta {
+  background:linear-gradient(180deg, var(--panel), #0e0e11);
+  border:1px solid var(--linea); border-radius:10px;
+  padding:14px 16px; position:relative; overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);
+  transition:border-color .25s, box-shadow .25s, transform .25s;
+  display:flex; flex-direction:column; gap:8px;
+}
+.tarjeta:hover {
+  transform:translateY(-3px);
+  border-color:rgba(255,45,64,.55);
+  box-shadow:0 0 26px rgba(255,45,64,.15), 0 16px 40px rgba(0,0,55,.55);
+}
+.tarjeta::before {
+  content:''; position:absolute; inset:0 0 auto 0; height:2px;
+  background:linear-gradient(90deg, transparent, var(--neon), transparent);
+  background-size:38% 100%; background-repeat:no-repeat;
+  background-position:-60% 0; opacity:.45; animation:recorre 4.5s linear infinite;
+  transition:opacity .3s;
+}
+.tarjeta:hover::before { opacity:1; }
+.tarjeta strong { font-size:.92rem; letter-spacing:.2px; display:block; }
+.tarjeta .mini { color:var(--gris); font-size:.72rem; letter-spacing:1px; text-transform:uppercase; }
+.tarjeta.bloqueada { filter:saturate(.35) brightness(.85); }
+.tarjeta.bloqueada strong { color:var(--bloq); }
+.tarjeta.completada { border-color:rgba(41,217,138,.35); }
+.tarjeta.completada::before { background:linear-gradient(90deg, transparent, var(--verde), transparent); }
+.estado {
+  font-size:.62rem; font-weight:700; padding:3px 9px; align-self:flex-start;
+  letter-spacing:1.5px; text-transform:uppercase;
+  border:1px solid; white-space:nowrap; border-radius:4px;
+}
+.estado.pendiente  { color:var(--gris); border-color:var(--linea); background:rgba(255,255,255,.02); }
+.estado.bloqueado  { color:var(--bloq); border-color:#2c2c33; border-style:dashed; }
+.estado.en-curso   { color:var(--amarillo); border-color:rgba(255,182,54,.4); }
+.estado.completado { color:var(--verde); border-color:rgba(41,217,138,.35); box-shadow:0 0 10px rgba(41,217,138,.2); }
+
+/* ============ Botones y controles ============ */
+.btn {
+  display:inline-block; cursor:pointer; font-family:inherit;
+  font-size:.78rem; letter-spacing:1px; text-transform:uppercase;
+  color:var(--blanco); background:rgba(255,45,64,.08);
+  border:1px solid rgba(255,45,64,.45); border-radius:8px;
+  padding:8px 16px; transition:background .2s, box-shadow .2s;
+}
+.btn:hover { background:rgba(255,45,64,.18); box-shadow:0 0 16px rgba(255,45,64,.25); }
+.btn.sec { border-color:var(--linea); background:transparent; color:var(--gris); }
+.btn.sec:hover { color:var(--blanco); border-color:var(--gris); box-shadow:none; }
+.btn:disabled { opacity:.4; cursor:not-allowed; box-shadow:none; }
+
+/* filtros del catálogo */
+.filtros { display:flex; gap:8px; flex-wrap:wrap; margin:14px 0; }
+.chip {
+  cursor:pointer; font-family:inherit; font-size:.72rem; letter-spacing:1px;
+  text-transform:uppercase; color:var(--gris);
+  background:transparent; border:1px solid var(--linea); border-radius:999px;
+  padding:6px 14px; transition:all .2s;
+}
+.chip:hover { color:var(--blanco); border-color:var(--gris); }
+.chip.activo { color:var(--negro); background:var(--neon); border-color:var(--neon); box-shadow:0 0 14px var(--neon-glow); }
+.chip .nro { opacity:.6; margin-left:4px; }
+
+/* ============ Detalle de módulo ============ */
+.mod-cab { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap; margin:24px 0 10px; }
+.mod-cab h1 { font-size:1.25rem; max-width:640px; }
+.teoria { color:var(--texto); font-size:.92rem; margin:14px 0; }
+.teoria strong { color:var(--blanco); }
+.teoria h4 { color:var(--neon-soft); margin:16px 0 8px; text-transform:uppercase; font-size:.78rem; letter-spacing:1.2px; }
+.teoria table { border-collapse:collapse; margin:10px 0; width:100%; font-size:.85rem; }
+.teoria th, .teoria td { border:1px solid var(--linea); padding:7px 10px; text-align:left; }
+.teoria th { background:var(--panel2); color:var(--blanco); }
+.teoria .aviso {
+  border-left:3px solid var(--amarillo); background:rgba(255,182,54,.06);
+  padding:10px 14px; margin:12px 0; font-size:.86rem; color:var(--texto); border-radius:0 6px 6px 0;
+}
+code, pre code {
+  background:#202027; color:#ff8a93;
+  padding:1px 6px; border-radius:4px;
+  font-family:Consolas, monospace; font-size:.88em;
+}
+pre {
+  background:#121216; border:1px solid var(--linea); border-radius:8px;
+  padding:14px 16px; overflow-x:auto; margin:12px 0;
+  font-size:.84rem; line-height:1.6;
+}
+pre code { background:transparent; padding:0; }
+
+/* checklist y quiz */
+.check { display:flex; align-items:flex-start; gap:10px; padding:7px 0; cursor:pointer; }
+.check input { accent-color:var(--verde); width:16px; height:16px; margin-top:3px; cursor:pointer; }
+.check.done { color:var(--gris); text-decoration:line-through; }
+.opcion { display:flex; gap:10px; align-items:flex-start; padding:7px 0; cursor:pointer; }
+.opcion input { accent-color:var(--neon); width:15px; height:15px; margin-top:3px; cursor:pointer; }
+
+/* ============ Examen ============ */
+.examen-hero {
+  background:linear-gradient(180deg, var(--panel), #0e0e11);
+  border:1px solid var(--linea); border-radius:12px; padding:22px;
+  margin:20px 0; box-shadow:0 12px 34px rgba(0,0,0,.5);
+}
+.examen-hero.aprobado { border-color:rgba(41,217,138,.4); }
+.pregunta {
+  background:var(--panel); border:1px solid var(--linea); border-radius:10px;
+  padding:14px 16px; margin:12px 0;
+}
+.pregunta .num { color:var(--neon); font-weight:700; font-size:.78rem; letter-spacing:1px; }
+.pregunta.pregunta-bien { border-color:rgba(41,217,138,.4); }
+.pregunta.pregunta-mal  { border-color:rgba(255,45,64,.5); }
+
+/* ============ Música: botón circular plegable (S8) ============ */
+#musica-boton {
+  position:fixed; right:18px; bottom:18px; z-index:90;
+  width:52px; height:52px; border-radius:50%;
+  background:var(--panel); border:1px solid var(--linea);
+  color:var(--neon); font-size:1.25rem; cursor:pointer;
+  box-shadow:0 8px 24px rgba(0,0,0,.55);
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color .2s, box-shadow .2s;
+}
+#musica-boton:hover { border-color:var(--neon); box-shadow:0 0 18px var(--neon-glow); }
+#musica-boton.suena { border-color:var(--neon); animation:latido-mus 2s ease-in-out infinite; }
+@keyframes latido-mus { 50% { box-shadow:0 0 18px var(--neon-glow); } }
+#musica-panel {
+  position:fixed; right:18px; bottom:78px; z-index:90;
+  width:min(320px, calc(100vw - 36px));
+  background:linear-gradient(180deg, var(--panel), #0e0e11);
+  border:1px solid var(--linea); border-radius:12px;
+  padding:16px; box-shadow:0 16px 44px rgba(0,0,0,.6);
+  display:none;
+}
+#musica-panel.abierto { display:block; animation:abrir .25s ease both; }
+@keyframes abrir { from { opacity:0; transform:translateY(8px); } }
+#musica-panel h3 { font-size:.78rem; text-transform:uppercase; letter-spacing:1.2px; color:var(--neon-soft); margin-bottom:10px; }
+#musica-panel .pista {
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  padding:7px 10px; border-radius:6px; cursor:pointer; font-size:.82rem; color:var(--texto);
+}
+#musica-panel .pista:hover { background:rgba(255,45,64,.08); color:var(--blanco); }
+#musica-panel .pista.escuchando { color:var(--neon); background:rgba(255,45,64,.06); }
+@media (max-width:640px) {
+  #musica-boton { right:14px; bottom:14px; width:46px; height:46px; }
+  #musica-panel { right:14px; bottom:66px; }
+}
+
+footer.pie {
+  margin:40px 0 24px; padding-top:16px; border-top:1px solid var(--linea);
+  color:var(--gris); font-size:.72rem; letter-spacing:1px; text-align:center;
+}
