@@ -92,9 +92,21 @@
 - **Fix de CSS:** se eliminó un `@media (prefers-reduced-motion)` duplicado que dejaba el CSS del examen y del panel de competencia anidado dentro de la media query.
 - Commits: `38dfd3c` **"v 1.1"** en `main` y `dev`, subido a `origin`.
 
+## Fase 11 · v 1.2 → v 1.7 · Frontend multipágina (navbar + catálogo + examen llave)
+
+- **Petición:** pasar de un solo HTML a un frontend organizado: «evitar que todo sea una landing page, repartir el contenido con navbar, que el visitant escoja que módulos ver, inicio sencillo y limpio» + música plegable como botón circular.
+- **Arquitectura elegida (vía técnica): estático multipágina sin build** — `index.html` (inicio), `modulos.html` (catálogo con filtros por pista), `modulo.html?id=…` (detalle con teoría/ejercicios/quiz), `examen.html` (llave), `css/styles.css`, `js/` (progreso, inicio, catalogo, modulo, examen, musica) y `data/` (modulos.js, examen.js).
+- **Decisiones del usuario:** catálogo navegable con examen como llave (22 principales libres · 10 convergentes tras aprobar, ≥19/22) · solo progreso persistente (sin dock grande ni ranking) · estética neón oscuro conservada.
+- **Progreso compatible:** misma clave localStorage (`popayanese_capacitacion_v6`) — el avance del monolito se conserva.
+- **Música plegable:** botón circular flotante (▲ corner de abajo), panel desplegable con pistas; ajustado tamaño en móvil.
+- **Hallazgo:** el array `MODULOS` del monolito tenía 4 comas dobles sueltas (agujeros tras `ptok`, `pwap`, `pdock`, `pagent`); en `data/modulos.js` quedaron limpias (32 reales). El monolito queda intacto en `main`/`dev` como referencia.
+- **Verificación:** smoke — 4 páginas responden 200, 8 JS parsean sin error, navbar activa correcta por página, 22/22 preguntas verbatim, candado de convergentes activo.
+- **Commits en `dev` (notas por versión, estilo repo):** `v 1.2 feat(data)` · `v 1.3 feat(ui)` · `v 1.4 feat(home)` · `v 1.5 feat(catalogo)` · `v 1.6 feat(modulo)` · `v 1.7 feat(examen)` · docs de esta fase.
+
 ## Estado actual (resumen ejecutivo)
 
-- `index.html`: 32 módulos (22 principales + 10 convergentes), examen final en cajón bloqueado al 100% de la ruta principal, dock de música y panel de competencia — se abre local, todo funciona.
+- **Frontend activo en `dev` (v 1.2 → v 1.7):** sitio multipágina estático — `index.html` inicio, `modulos.html` catálogo con filtros, `modulo.html?id=` detalle y `examen.html` llave; música plegable como botón circular; progreso en localStorage.
+- `index.html` monolito (v 1.1): queda en el historial de `main` como referencia — el working tree de `dev` ya trae el nuevo inicio multipágino.
 - `landing/index.html`: lista para publicar (pendiente número WhatsApp real, dominio, Netlify).
 - `INSTRUCCIONES.md`: actualizado a modelo abierto + examen.
 - Diseños canvas quedan en `C:/Users/carli/design/capacitacion-neon/` (referencia, no uso activo).
