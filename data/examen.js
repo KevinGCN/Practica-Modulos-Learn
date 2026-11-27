@@ -1,0 +1,26 @@
+/* ============ EXAMEN FINAL: una pregunta por cada módulo principal ============
+   Extraído verbatim del monolito index.html v6.2 (commit 38dfd3c). */
+const EXAM = [
+  { de:'M0 · Dominio',        p:'¿Quién le dice al mundo a qué servidor DNS preguntar por tu dominio?', ops:['La zona DNS','Los nameservers registrados en el registrador','El hosting'], r:1 },
+  { de:'M1 · DNS',            p:'El hosting te da un dominio (popayanese.netlify.app) y no una IP. ¿Qué registro usás?', ops:['A','CNAME','MX'], r:1 },
+  { de:'M2 · HTTP',           p:'¿Qué hace Strict-Transport-Security (HSTS)?', ops:['Comprime la página','Fuerza al navegador a usar HTTPS siempre para ese dominio','Bloquea bots'], r:1 },
+  { de:'M3 · Puertos',        p:'¿Por qué el puerto 3306 (MySQL) nunca queda abierto al público?', ops:['Porque es lento','Porque exponer la base de datos a bots es compromiso directo de datos','Porque Windows no lo permite'], r:1 },
+  { de:'M4 · VPS',            p:'¿Cuál es la regla de oro de UFW?', ops:['Habilitar UFW antes de permitir SSH','Permitir SSH ANTES de habilitar UFW','Nunca usar UFW en producción'], r:1 },
+  { de:'M8 · TypeScript',     p:'Diferencia práctica entre any y unknown:', ops:['Son sinónimos','any desactiva el chequeo; unknown obliga a verificar el tipo antes de usar','unknown es más rápido en runtime'], r:1 },
+  { de:'M9 · Node',           p:'¿Dónde van las credenciales en un proyecto Node real?', ops:['En constantes en el código','En process.env cargadas de .env, excluido de Git','En package.json como "secrets"'], r:1 },
+  { de:'M14 · Modularidad',   p:'Regla Boy Scout en versión práctica:', ops:['Refactor de 2 días cada mes','Cada vez que tocás código lo dejás un poco mejor que como lo encontraste','No tocar lo que funciona sin test'], r:1 },
+  { de:'M15 · Git',           p:'git revert vs git reset --hard:', ops:['Son equivalentes','revert commitea el cambio inverso (seguro); reset --hard reescribe historia y puede perder trabajo','reset --hard es el recomendado en equipo'], r:1 },
+  { de:'M19 · HTML',          p:'¿Cuántos <main> puede tener una página?', ops:['Uno solo; el resto se divide en section/article','Uno por viewport','Ilimitados'], r:0 },
+  { de:'M20 · CSS',           p:'Tu z-index:9999 queda debajo de un z-index:5. ¿Por qué?', ops:['CSS a veces falla sin causa','Estás en otro stacking context (padre con transform/opacity lo encierra)','El navegador ordena por orden HTML'], r:1 },
+  { de:'M21 · Trabajo con IA',p:'¿Cuál es el recurso escaso que el orquestador protege al delegar a un subagente?', ops:['El disco duro','El contexto del agente padre (tokens)','La RAM del servidor'], r:1 },
+  { de:'M22 · MCP',           p:'"Least privilege" en la configuración de MCP significa:', ops:['Dar el mínimo de permisos/carpetas necesarios para la tarea','Usar el server más chico','Desactivar todo preventivamente'], r:0 },
+  { de:'M23 · SSH/Linux',     p:'La llave SSH privada (id_ed25519):', ops:['Se sube al server para backup','NUNCA sale de tu PC ni va a Git; solo la pública se copia a servers','Va en package.json'], r:1 },
+  { de:'M24 · IA para video', p:'¿Por qué el video subtítulado rinde más en tu mercado?', ops:['Por estética','Gran parte se ve sin sonido y el subtítulo igual entrega el mensaje','Pesa menos al enviar'], r:1 },
+  { de:'M26 · Estar al día',  p:'La pregunta más importante del filtro ante una herramienta nueva:', ops:['¿Es más popular?','¿Resuelve un problema que tengo HOY y puedo monetizar pronto?','¿Tiene un logo lindo?'], r:1 },
+  { de:'M18 · SEO/Performance', p:'Para un restaurante local de Popayán, ¿qué da el mayor retorno?', ops:['Meta tags avanzados','Google Business Profile (su ficha en Maps)','Un bot de chat'], r:1 },
+  { de:'M27 · Optimización IA', p:'Cambias de modelo (o activás un MCP server) a mitad de una tarea larga. Consecuencia típica:', ops:['Nada: el cache se adapta','El cache se invalida: el próximo pedido reconstruye el contexto a precio full','El nuevo modelo recalcula gratis'], r:1 },
+  { de:'M28 · PWA/ORM', p:'Una PWA funciona offline gracias a:', ops:['La app baja de una tienda','El service worker intercepta pedidos y sirve del cache sin red','El manifest.json'], r:1 },
+  { de:'M29 · Docker', p:'El orden de capas del Dockerfile que da mejor cache de build:', ops:['Copiar todo el código primero, deps después','Copiar package*.json + instalar deps ANTES del código (no reinstala en cada cambio)','Exponer puertos primero'], r:1 },
+  { de:'M30 · IA Video', p:'En el pipeline de video con IA, tu parte irremplazable es:', ops:['Ninguna, todo es automático','El guion y el criterio editorial: la IA ensambla, vos curás','La voz en off'], r:1 },
+  { de:'M31 · Inglés', p:'El cuello de botella principal de un hablante B1-B2 es:', ops:['Falta de vocabulario','Traducir mentalmente desde el español; la cura es volumen de habla forzada','La gramática'], r:1 },
+];
